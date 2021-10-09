@@ -31,10 +31,10 @@ A Golang REST API to handle users and posts for a simple instagram backend. Uses
 creates a post using data from the POST request's body
 
 #### ``` /api/posts/<id> ``` 
-fetches post details of the given id
+fetches post details for the given id
 
 #### ``` /api/posts/users/<id>?limit={}&lastid={} ``` 
-fetches posts of the user with given id withing a limit and with ids greater than lastid (if lastid is not null)
+fetches posts of the user with given id within a limit and with ids greater than lastid (if lastid is not null)
 
 #### ``` /api/users ```
 creates a user and encrypts the password using ciphers before storing
@@ -47,7 +47,7 @@ fetches user details of given id
 The API employs an id-based pagination for the  ``` /api/posts/users/<id> ``` endpoint. 
 On the initial call, the limit parameter must be passed along with the request. The API returns the requsted number of posts and the id of the last post. Subsequent calls 
 from the front-end must also contain a ``` lastid ``` parameter with the id that was returned on the previous call. This ensures that the second call returns posts starting 
-with ids greater than the `` lastid ```. This ensures that the API response doesn't explode in size.
+with ids greater than the ``` lastid ``` . This ensures that the API response doesn't explode in size.
 
 ![](https://i.imgur.com/DOhl8Pc.png)
 
