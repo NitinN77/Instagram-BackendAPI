@@ -7,7 +7,7 @@ A Golang REST API to handle users and posts for a simple instagram backend. Uses
 - mongo-driver 
 - godotenv (to handle secrets using environment variables, not required)
 
-## File Structure
+## Directory Structure
 
 ```
 ├── go.mod
