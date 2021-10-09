@@ -61,3 +61,24 @@ with ids greater than the ``` lastid ``` . This ensures that the API response do
 2. ``` go build main.go ```
 3. ``` go run ./ ```
 
+## Screenshots
+
+- Creating a post
+
+![](https://i.imgur.com/3X7lqst.png)
+
+- Fetching a post
+
+![](https://i.imgur.com/n6H3WjF.png)
+
+- Create a user
+
+![](https://i.imgur.com/f1EPfqO.png)
+
+- Fetch a user
+
+![](https://i.imgur.com/GlOGzhu.png)
+
+- Fetch posts created by a user
+
+![](https://i.imgur.com/SKz48ya.png)
