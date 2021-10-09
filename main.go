@@ -27,7 +27,7 @@ var userCollection = helper.ConnectUsersDB()
 
 // POST ENDPOINTS
 
-func getPost(w http.ResponseWriter, r *http.Request) {
+func GetPost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var post models.Post
 	postId := strings.TrimPrefix(r.URL.Path, "/api/posts/")
@@ -41,7 +41,7 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(post)
 }
 
-func createPost(w http.ResponseWriter, r *http.Request) {
+func CreatePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var post models.Post
 	_ = json.NewDecoder(r.Body).Decode(&post)
@@ -56,7 +56,7 @@ func createPost(w http.ResponseWriter, r *http.Request) {
 
 // USER ENDPOINTS
 
-func createUser(w http.ResponseWriter, r *http.Request) {
+func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var user models.User
 	_ = json.NewDecoder(r.Body).Decode(&user)
@@ -79,7 +79,7 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(result)
 }
 
-func getUser(w http.ResponseWriter, r *http.Request) {
+func GetUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var user models.User
 	userId := strings.TrimPrefix(r.URL.Path, "/api/users/")
@@ -93,7 +93,7 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(user)
 }
 
-func getPostsByUser(w http.ResponseWriter, r *http.Request) {
+func GetPostsByUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var posts []models.Post
 	var user models.User
@@ -146,12 +146,12 @@ func getPostsByUser(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	http.HandleFunc("/api/posts", createPost)
-	http.HandleFunc("/api/posts/", getPost)
-	http.HandleFunc("/api/posts/users/", getPostsByUser)
+	http.HandleFunc("/api/posts", CreatePost)
+	http.HandleFunc("/api/posts/", GetPost)
+	http.HandleFunc("/api/posts/users/", GetPostsByUser)
 
-	http.HandleFunc("/api/users", createUser)
-	http.HandleFunc("/api/users/", getUser)
+	http.HandleFunc("/api/users", CreateUser)
+	http.HandleFunc("/api/users/", GetUser)
 
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
