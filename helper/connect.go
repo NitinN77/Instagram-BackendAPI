@@ -6,14 +6,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func ConnectPostsDB() *mongo.Collection {
+	err := godotenv.Load("helper/.env")
 
-	clientOptions := options.Client().ApplyURI("mongodb+srv://Admin:admininstabackend@cluster0.rre0y.mongodb.net/Database?retryWrites=true&w=majority")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	clientOptions := options.Client().ApplyURI("mongodb+srv://Admin:" + os.Getenv("DBKEY") + "@cluster0.rre0y.mongodb.net/Database?retryWrites=true&w=majority")
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
 	if err != nil {
@@ -29,7 +36,7 @@ func ConnectPostsDB() *mongo.Collection {
 
 func ConnectUsersDB() *mongo.Collection {
 
-	clientOptions := options.Client().ApplyURI("mongodb+srv://Admin:admininstabackend@cluster0.rre0y.mongodb.net/Database?retryWrites=true&w=majority")
+	clientOptions := options.Client().ApplyURI("mongodb+srv://Admin:" + os.Getenv("DBKEY") + "@cluster0.rre0y.mongodb.net/Database?retryWrites=true&w=majority")
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
 	if err != nil {

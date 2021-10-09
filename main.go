@@ -105,7 +105,7 @@ func getPostsByUser(w http.ResponseWriter, r *http.Request) {
 	id, _ := primitive.ObjectIDFromHex(userId)
 	filter := bson.M{"_id": id}
 	err := userCollection.FindOne(context.TODO(), filter).Decode(&user)
-	cur, err := postCollection.Find(context.TODO(), bson.M{})
+	cur, err := postCollection.Find(context.TODO(), bson.M{"author": user.Name})
 	if err != nil {
 		helper.GetError(err, w)
 		return
@@ -119,18 +119,16 @@ func getPostsByUser(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		if post.Author == user.Name {
-			if len(lowerId) > 0 {
-				if strings.Compare(post.ID.Hex(), lowerId[0]) == 1 {
-					posts = append(posts, post)
-					i += 1
-				}
-			} else {
+		if len(lowerId) > 0 {
+			if strings.Compare(post.ID.Hex(), lowerId[0]) == 1 {
 				posts = append(posts, post)
 				i += 1
 			}
-			retId = post.ID.Hex()
+		} else {
+			posts = append(posts, post)
+			i += 1
 		}
+		retId = post.ID.Hex()
 		if int64(i) == limit {
 			break
 		}
